@@ -41,6 +41,13 @@ DELETE  /api/blog-post/:id — Delete a blog post
 PATCH   /api/blog-post/:id — Update a blog post
 ```
 
+## Commands
+
+At the root of project, i.e., where main.go is present, run below mentioned commands**
+*  **make swag:** To regenrate swagger docs
+*  **make test:** To unit test whole application
+*  **make run:** To run the application 
+
 ## Test Coverage
 
 ```
