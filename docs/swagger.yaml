@@ -29,6 +29,11 @@ definitions:
       error:
         type: string
     type: object
+  models.SuccessResponse:
+    properties:
+      message:
+        type: string
+    type: object
 host: localhost:8080
 info:
   contact:
@@ -41,7 +46,7 @@ paths:
     post:
       consumes:
       - application/json
-      description: Endpoint to create a blog by id
+      description: Endpoint to create a blog
       parameters:
       - description: Blog Request Body
         in: body
@@ -60,10 +65,6 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/models.ErrorResponse'
-        "404":
-          description: Not Found
-          schema:
-            type: string
         "500":
           description: Internal Server Error
           schema:
@@ -86,7 +87,7 @@ paths:
         "200":
           description: Successful Response
           schema:
-            $ref: '#/definitions/models.Blog'
+            $ref: '#/definitions/models.SuccessResponse'
         "400":
           description: Bad Request
           schema:
