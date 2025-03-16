@@ -41,6 +41,10 @@ DELETE  /api/blog-post/:id — Delete a blog post
 PATCH   /api/blog-post/:id — Update a blog post
 ```
 
+## Swagger Link
+
+https://quartiz-blog-post.onrender.com/swagger/index.html
+
 ## Commands
 
 At the root of project, i.e., where main.go is present, run below mentioned commands**
