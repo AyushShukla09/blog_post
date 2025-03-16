@@ -1,0 +1,196 @@
+basePath: /api/v1
+definitions:
+  models.Blog:
+    properties:
+      body:
+        type: string
+      created_at:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  models.BlogRequestBody:
+    properties:
+      body:
+        type: string
+      description:
+        type: string
+      title:
+        type: string
+    type: object
+  models.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: ayush.shukla8797@gmail.com
+    name: Ayush Shukla
+  title: Blog API
+  version: "1.0"
+paths:
+  /blog-post:
+    post:
+      consumes:
+      - application/json
+      description: Endpoint to create a blog by id
+      parameters:
+      - description: Blog Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.BlogRequestBody'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/models.Blog'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: create a blog
+      tags:
+      - Blog
+  /blog-post/{id}:
+    delete:
+      description: Endpoint to delete a blog by id
+      parameters:
+      - description: Blog ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/models.Blog'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: delete a blog
+      tags:
+      - Blog
+    get:
+      description: Endpoint to fetch a blog by id
+      parameters:
+      - description: Blog ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/models.Blog'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: fetch a blog
+      tags:
+      - Blog
+    put:
+      consumes:
+      - application/json
+      description: Endpoint to update a blog by id
+      parameters:
+      - description: Blog ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Blog Request Body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.BlogRequestBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful Response
+          schema:
+            $ref: '#/definitions/models.Blog'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: update a blog
+      tags:
+      - Blog
+  /blog-posts:
+    get:
+      description: Endpoint to list all blog posts
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful Response
+          schema:
+            items:
+              $ref: '#/definitions/models.Blog'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: lists all blogs
+      tags:
+      - Blogs
+swagger: "2.0"
