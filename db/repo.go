@@ -5,6 +5,8 @@ import (
 	"errors"
 	"sync"
 	"time"
+
+	"github.com/gofiber/fiber/v2/log"
 )
 
 type Repo struct {
@@ -24,6 +26,9 @@ func (r *Repo) GetAllBlogs() ([]models.Blog, error) {
 	blogs := make([]models.Blog, 0, len(r.data))
 	for _, blog := range r.data {
 		blogs = append(blogs, blog)
+	}
+	if len(blogs) == 0 {
+		return nil, errors.New("no blogs in DB")
 	}
 	return blogs, nil
 }
@@ -56,8 +61,11 @@ func (r *Repo) DeleteBlog(id int64) error {
 // CreateBlog creates a new blog
 func (r *Repo) CreateBlog(blog models.BlogRequestBody) (models.Blog, error) {
 	r.mu.Lock()
-	r.mu.Unlock()
-
+	defer r.mu.Unlock()
+	if blog.Title == "" || blog.Body == "" || blog.Description == "" {
+		log.Error("CreateBlog failed: Missing field")
+		return models.Blog{}, errors.New("missing required field")
+	}
 	id := len(r.data)
 	newID := int64(id + 1)
 	r.data[newID] = models.Blog{
@@ -74,8 +82,11 @@ func (r *Repo) CreateBlog(blog models.BlogRequestBody) (models.Blog, error) {
 // UpdateBlog updates an existing blog
 func (r *Repo) UpdateBlog(id int64, blog models.BlogRequestBody) (models.Blog, error) {
 	r.mu.Lock()
-	r.mu.Unlock()
-
+	defer r.mu.Unlock()
+	if blog.Title == "" || blog.Body == "" || blog.Description == "" {
+		log.Error("UpdateBlog failed: Missing field")
+		return models.Blog{}, errors.New("missing required field")
+	}
 	oldBlog, exists := r.data[id]
 	if !exists {
 		return models.Blog{}, errors.New("blog not found")
