@@ -3,3 +3,6 @@ run:
 
 swag:
 	swag init
+
+test:
+	go test --cover ./...
