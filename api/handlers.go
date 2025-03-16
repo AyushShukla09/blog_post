@@ -53,7 +53,7 @@ func GetBlog(c *fiber.Ctx) error {
 }
 
 // @Summary create a blog
-// @Description Endpoint to create a blog by id
+// @Description Endpoint to create a blog
 // @Tags Blog
 // @Produce json
 // @Accept json
@@ -61,7 +61,6 @@ func GetBlog(c *fiber.Ctx) error {
 // @Success 201 {object} models.Blog "Successful Response"
 // @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Failure 400 {object} models.ErrorResponse "Bad Request"
-// @Failure 404 {object} string "Not Found"
 // @Router /blog-post [post]
 func CreateBlog(c *fiber.Ctx) error {
 	var reqBody models.BlogRequestBody
@@ -114,7 +113,7 @@ func UpdateBlog(c *fiber.Ctx) error {
 // @Tags Blog
 // @Produce json
 // @Param id path int64 true "Blog ID"
-// @Success 200 {object} string "Successful Response"
+// @Success 200 {object} models.SuccessResponse "Successful Response"
 // @Failure 500 {object} models.ErrorResponse "Internal Server Error"
 // @Failure 400 {object} models.ErrorResponse "Bad Request"
 // @Failure 404 {object} string "Not Found"

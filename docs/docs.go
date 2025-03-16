@@ -20,7 +20,7 @@ const docTemplate = `{
     "paths": {
         "/blog-post": {
             "post": {
-                "description": "Endpoint to create a blog by id",
+                "description": "Endpoint to create a blog",
                 "consumes": [
                     "application/json"
                 ],
@@ -53,12 +53,6 @@ const docTemplate = `{
                         "description": "Bad Request",
                         "schema": {
                             "$ref": "#/definitions/models.ErrorResponse"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "type": "string"
                         }
                     },
                     "500": {
@@ -195,7 +189,7 @@ const docTemplate = `{
                     "200": {
                         "description": "Successful Response",
                         "schema": {
-                            "$ref": "#/definitions/models.Blog"
+                            "$ref": "#/definitions/models.SuccessResponse"
                         }
                     },
                     "400": {
@@ -297,6 +291,14 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.SuccessResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
                     "type": "string"
                 }
             }
