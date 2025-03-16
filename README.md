@@ -20,8 +20,10 @@ This is a RESTful API for managing blog posts, built with Go.
 │
 ├── /api             # Handlers and routes
 ├── /db              # In-memory database implementation
+├── /docs            # Swagger documentation
 ├── /models          # Models for request/response structures
 ├── main.go          # Application entry point
+├── Makefile         # Makefile to run commands
 ├── go.mod           # Go module file
 └── go.sum           # Dependencies file
 
