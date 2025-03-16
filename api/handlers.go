@@ -7,6 +7,7 @@ import (
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/log"
 )
 
 // @Summary lists all blogs
@@ -20,6 +21,7 @@ import (
 func GetAllBlogs(c *fiber.Ctx) error {
 	blogs, err := db.DB.GetAllBlogs()
 	if err != nil {
+		log.Errorf("GetAllBlogs failed: %v", err)
 		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
 	}
 	return c.Status(http.StatusOK).JSON(blogs)
@@ -39,10 +41,12 @@ func GetBlog(c *fiber.Ctx) error {
 	id := c.Params("id")
 	blogID, err := strconv.ParseInt(id, 10, 64)
 	if err != nil {
+		log.Errorf("GetBlog failed: %v", err)
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
 	}
 	blog, err := db.DB.GetBlog(blogID)
 	if err != nil {
+		log.Errorf("GetBlog failed: %v", err)
 		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
 	}
 	return c.Status(http.StatusOK).JSON(blog)
@@ -62,10 +66,12 @@ func GetBlog(c *fiber.Ctx) error {
 func CreateBlog(c *fiber.Ctx) error {
 	var reqBody models.BlogRequestBody
 	if err := c.BodyParser(&reqBody); err != nil {
+		log.Errorf("CreateBlog failed: %v", err)
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
 	}
 	blog, err := db.DB.CreateBlog(reqBody)
 	if err != nil {
+		log.Errorf("CreateBlog failed: %v", err)
 		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
 	}
 	return c.Status(http.StatusCreated).JSON(blog)
@@ -88,13 +94,16 @@ func UpdateBlog(c *fiber.Ctx) error {
 	id := c.Params("id")
 	blogID, err := strconv.ParseInt(id, 10, 64)
 	if err != nil {
+		log.Errorf("UpdateBlog failed: %v", err)
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
 	}
 	if err := c.BodyParser(&reqBody); err != nil {
+		log.Errorf("UpdateBlog failed: %v", err)
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
 	}
 	blog, err := db.DB.UpdateBlog(blogID, reqBody)
 	if err != nil {
+		log.Errorf("UpdateBlog failed: %v", err)
 		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
 	}
 	return c.Status(http.StatusOK).JSON(blog)
@@ -114,9 +123,11 @@ func DeleteBlog(c *fiber.Ctx) error {
 	id := c.Params("id")
 	blogID, err := strconv.ParseInt(id, 10, 64)
 	if err != nil {
+		log.Errorf("DeleteBlog failed: %v", err)
 		return c.Status(http.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
 	}
 	if err := db.DB.DeleteBlog(blogID); err != nil {
+		log.Errorf("DeleteBlog failed: %v", err)
 		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
 	}
 	return c.Status(http.StatusOK).JSON(fiber.Map{"message": "Blog deleted successfully"})

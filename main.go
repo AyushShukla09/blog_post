@@ -2,11 +2,11 @@ package main
 
 import (
 	"blog_post/api"
-	"log"
 
 	_ "blog_post/docs"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/log"
 	"github.com/gofiber/swagger" // swagger handler
 )
 
@@ -27,6 +27,6 @@ func main() {
 	router.Put("/blog-post/:id<min(1)>", api.UpdateBlog)
 	router.Delete("/blog-post/:id<min(1)>", api.DeleteBlog)
 
-	log.Println("Listening at port :8080")
+	log.Info("Listening at port :8080")
 	log.Fatal(app.Listen(":8080"))
 }
