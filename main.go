@@ -26,6 +26,11 @@ func main() {
 
 func setup() *fiber.App {
 	app := fiber.New()
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: "*", 
+		AllowMethods: "GET,POST,PUT,DELETE,PATCH",
+		AllowHeaders: "*",
+	}))
 	router := app.Group("/api/v1")
 	app.Get("/swagger/*", swagger.HandlerDefault) // default
 	router.Get("/blog-posts", api.GetAllBlogs)
