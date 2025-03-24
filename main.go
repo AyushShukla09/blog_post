@@ -13,7 +13,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-//	@title	Blog API
+// @title	Blog API
 
 // @version		1.0
 // @contact.name	Ayush Shukla
@@ -58,7 +58,7 @@ func setup() *fiber.App {
 	router.Get("/blog-posts", api.GetAllBlogs)
 	router.Post("/blog-post", m.VerifyBlogFields, api.CreateBlog)
 	router.Get("/blog-post/:id<min(1)>", api.GetBlog)
-	router.Put("/blog-post/:id<min(1)>", api.UpdateBlog)
+	router.Put("/blog-post/:id<min(1)>", m.VerifyBlogFields, api.UpdateBlog)
 	router.Delete("/blog-post/:id<min(1)>", api.DeleteBlog)
 
 	return app
